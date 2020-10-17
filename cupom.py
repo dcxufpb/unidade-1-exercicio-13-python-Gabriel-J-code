@@ -104,16 +104,16 @@ class Venda:
 		texto_data = self.datahora.strftime("%d/%m/%Y")
 		texto_hora = self.datahora.time().strftime("%H:%M:%S")		
 
-		return '''{data} {hora}V CCF:{ccf} COO:{coo}'''.format(data=texto_data, hora=texto_hora, ccf='%06d'%self.ccf, coo='%06d'%self.coo)
+		return '''{data} {hora}V CCF:{ccf} COO:{coo}'''.format(data=texto_data, hora=texto_hora, ccf='%s'%self.ccf, coo='%s'%self.coo)
 	
 	def validar_campos_obrigatorios(self): 
 		if type(self.loja) != Loja:
 			raise Exception("O campo loja da venda não é valido")
 		if type(self.datahora) != datetime.datetime:
 			raise Exception("O campo data e hora da venda não é valido")
-		if self.ccf <= 0 or type(self.ccf) != int:
+		if isEmpty(self.ccf):
 			raise Exception("O campo ccf da venda não é valido")
-		if self.coo <= 0 or type(self.coo) != int:
+		if isEmpty(self.coo):
 			raise Exception("O campo coo da venda não é valido")	
 		
 	

@@ -381,8 +381,8 @@ IE: 4232303-79""")
 import datetime
 
 datahora = datetime.datetime(2015,10,29,11,9,47)
-ccf = 21784
-coo = 35804
+ccf = "021784"
+coo = "035804"
 
 def verifica_campo_obrigatorio_venda(mensagem_esperada, venda):
 	with pytest.raises(Exception) as excinfo:
@@ -411,10 +411,14 @@ def test_venda_valida_datahora():
 
 #venda sem ccf
 def test_venda_valida_ccf():
-	VENDA_CCF_0 = LOJA_COMPLETA.vender(datahora,0,coo)
-	verifica_campo_obrigatorio_venda("O campo ccf da venda não é valido", VENDA_CCF_0)
+	VENDA_CCF_VAZIA = LOJA_COMPLETA.vender(datahora,"",coo)
+	verifica_campo_obrigatorio_venda("O campo ccf da venda não é valido", VENDA_CCF_VAZIA)
+	VENDA_CCF_NULA = LOJA_COMPLETA.vender(datahora,None,coo)
+	verifica_campo_obrigatorio_venda("O campo ccf da venda não é valido", VENDA_CCF_NULA)
 
 #venda sem coo
 def test_venda_valida_coo():
-	VENDA_COO_0 = LOJA_COMPLETA.vender(datahora,ccf,0)
-	verifica_campo_obrigatorio_venda("O campo coo da venda não é valido", VENDA_COO_0)
+	VENDA_COO_VAZIO = LOJA_COMPLETA.vender(datahora,ccf,"")
+	verifica_campo_obrigatorio_venda("O campo coo da venda não é valido", VENDA_COO_VAZIO)
+	VENDA_COO_NULO = LOJA_COMPLETA.vender(datahora,ccf,None)
+	verifica_campo_obrigatorio_venda("O campo coo da venda não é valido", VENDA_COO_NULO)
